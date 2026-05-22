@@ -5,6 +5,15 @@ Modern full-stack expense tracking and financial analytics platform built with N
 Designed with a premium fintech-inspired UI featuring interactive analytics, dark/light themes, responsive dashboards, animated charts, and secure JWT authentication.
 
 ---
+# 🌍 Live Demo
+
+## 🚀 Frontend (Vercel)
+https://expense-flow-ecru.vercel.app/
+
+## ⚙️ Backend API (Render)
+https://expenseflow-xivq.onrender.com/
+
+---
 
 ## ✨ Features
 
