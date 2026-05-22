@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initSidebar();
   initNavigation();
+  initRouteSection();
   initThemeToggle();
   initModal();
   initDeleteModal();
@@ -159,6 +160,7 @@ function initNavigation() {
     link.addEventListener('click', () => {
       const section = link.dataset.section;
       switchSection(section);
+      updateSectionInUrl(section);
 
       // Close mobile sidebar
       document.getElementById('sidebar').classList.remove('mobile-open');
@@ -171,6 +173,20 @@ function initNavigation() {
       logout();
     });
   }
+}
+
+function initRouteSection() {
+  const section = getSectionFromUrl();
+  if (section && section !== currentSection) {
+    switchSection(section);
+  }
+
+  window.addEventListener('hashchange', () => {
+    const nextSection = getSectionFromUrl();
+    if (nextSection && nextSection !== currentSection) {
+      switchSection(nextSection);
+    }
+  });
 }
 
 function switchSection(section) {
@@ -204,6 +220,18 @@ function switchSection(section) {
   if (section === 'analytics') {
     setTimeout(() => updateCharts(expenses, getTheme(), true), 100);
   }
+}
+
+function getSectionFromUrl() {
+  const hash = (window.location.hash || '').replace('#', '').trim().toLowerCase();
+  const valid = ['overview', 'transactions', 'analytics'];
+  return valid.includes(hash) ? hash : null;
+}
+
+function updateSectionInUrl(section) {
+  const valid = ['overview', 'transactions', 'analytics'];
+  if (!valid.includes(section)) return;
+  history.replaceState(null, '', `#${section}`);
 }
 
 // ═══════════════════════════════════════════════════════════════
